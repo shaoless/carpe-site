@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(rmdir /Users/zen/Documents/git/typescript)",
+      "Read(//Users/zen/Documents/git/**)",
+      "Bash(npx create-next-app@latest typescript --typescript --tailwind --eslint --app --src-dir --import-alias \"@/*\" --use-npm --no-turbopack)",
+      "Bash(npm install *)",
+      "Bash(mkdir -p /Users/zen/Documents/git/typescript/src/app/\\\\\\(public\\\\\\)/projects/\\\\[id\\\\])",
+      "Bash(mkdir -p /Users/zen/Documents/git/typescript/src/app/\\\\\\(public\\\\\\)/news/\\\\[id\\\\])",
+      "Bash(npx drizzle-kit *)",
+      "Bash(npx tsx *)",
+      "Bash(npm run *)",
+      "Bash(curl -s http://localhost:3000)",
+      "Bash(curl -s http://localhost:3000/about)",
+      "Bash(curl -s http://localhost:3000/admin/login)",
+      "Bash(curl -s -c /tmp/cookies.txt -b /tmp/cookies.txt http://localhost:3000/admin/login)",
+      "Bash(curl *)",
+      "Bash(sqlite3 *)"
+    ]
+  }
+}
