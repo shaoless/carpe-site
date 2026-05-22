@@ -8,7 +8,7 @@ const db = drizzle(sqlite, { schema });
 
 async function seed() {
   // Create default admin user (admin / admin123)
-  const passwordHash = await bcrypt.hash("admin123", 10);
+  const passwordHash = await bcrypt.hash("admin2020", 10);
   const existingAdmin = sqlite
     .prepare("SELECT id FROM users WHERE username = ?")
     .get("admin");
@@ -18,7 +18,7 @@ async function seed() {
       username: "admin",
       passwordHash,
     }).run();
-    console.log("Created default admin user: admin / admin123");
+    console.log("Created default admin user: admin / admin2020");
   }
 
   // Seed some sample projects
