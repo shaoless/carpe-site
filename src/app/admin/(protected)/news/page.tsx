@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { MediaPicker } from "@/components/admin/MediaPicker";
 
 interface NewsItem {
   id: number;
@@ -91,13 +92,10 @@ export default function AdminNewsPage() {
               />
             </div>
             <div>
-              <label className="mb-1 block text-sm font-medium">封面图片URL</label>
-              <input
-                type="text"
-                value={form.coverImage}
-                onChange={(e) => setForm({ ...form, coverImage: e.target.value })}
-                className="w-full rounded-lg border px-3 py-2 text-sm focus:border-blue-500 focus:outline-none"
-                placeholder="https://..."
+              <label className="mb-1 block text-sm font-medium">封面图片</label>
+              <MediaPicker
+                value={form.coverImage ? [form.coverImage] : []}
+                onChange={(urls) => setForm({ ...form, coverImage: urls[0] || "" })}
               />
             </div>
             <div className="md:col-span-2">

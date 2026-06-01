@@ -2,6 +2,7 @@ import Link from "next/link";
 import { db } from "@/lib/db";
 import { news } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
+import { MediaViewer } from "@/components/MediaViewer";
 
 export default function NewsPage() {
   const publishedNews = db
@@ -32,7 +33,7 @@ export default function NewsPage() {
                 className="group flex flex-col gap-4 rounded-xl border p-6 transition-all hover:shadow-md hover:border-blue-200 md:flex-row"
               >
                 {item.coverImage && (
-                  <img
+                  <MediaViewer
                     src={item.coverImage}
                     alt={item.title}
                     className="h-40 w-full rounded-lg object-cover md:w-48 md:shrink-0"

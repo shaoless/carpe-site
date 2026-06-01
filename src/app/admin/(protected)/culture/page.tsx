@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { MediaPicker } from "@/components/admin/MediaPicker";
 
 interface CultureItem {
   id: number;
@@ -118,13 +119,10 @@ export default function AdminCulturePage() {
               />
             </div>
             <div className="md:col-span-2">
-              <label className="mb-1 block text-sm font-medium">图片URL</label>
-              <input
-                type="text"
-                value={form.image}
-                onChange={(e) => setForm({ ...form, image: e.target.value })}
-                className="w-full rounded-lg border px-3 py-2 text-sm focus:border-blue-500 focus:outline-none"
-                placeholder="https://..."
+              <label className="mb-1 block text-sm font-medium">图片</label>
+              <MediaPicker
+                value={form.image ? [form.image] : []}
+                onChange={(urls) => setForm({ ...form, image: urls[0] || "" })}
               />
             </div>
           </div>

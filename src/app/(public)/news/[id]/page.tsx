@@ -2,6 +2,7 @@ import { db } from "@/lib/db";
 import { news } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
 import { notFound } from "next/navigation";
+import { MediaViewer } from "@/components/MediaViewer";
 
 export default async function NewsDetailPage({
   params,
@@ -32,7 +33,7 @@ export default async function NewsDetailPage({
 
       <section className="mx-auto max-w-4xl px-4 py-12">
         {item.coverImage && (
-          <img
+          <MediaViewer
             src={item.coverImage}
             alt={item.title}
             className="mb-8 w-full rounded-xl object-cover max-h-96"

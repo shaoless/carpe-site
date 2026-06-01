@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { MediaPicker } from "@/components/admin/MediaPicker";
 
 interface Project {
   id: number;
@@ -9,15 +10,25 @@ interface Project {
   description: string;
   content: string;
   coverImage: string;
+  images: string;
   published: boolean;
   createdAt: string;
+}
+
+function parseImages(raw: string): string[] {
+  try {
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed.filter((v) => typeof v === "string") : [];
+  } catch {
+    return [];
+  }
 }
 
 export default function AdminProjectsPage() {
   const [projects, setProjects] = useState<Project[]>([]);
   const [editing, setEditing] = useState<Project | null>(null);
   const [showForm, setShowForm] = useState(false);
-  const [form, setForm] = useState({ title: "", description: "", content: "", coverImage: "", published: false });
+  const [form, setForm] = useState({ title: "", description: "", content: "", coverImage: "", images: [] as string[], published: false });
   const [loading, setLoading] = useState(false);
 
   useEffect(() => { fetchProjects(); }, []);
@@ -28,14 +39,21 @@ export default function AdminProjectsPage() {
   }
 
   function resetForm() {
-    setForm({ title: "", description: "", content: "", coverImage: "", published: false });
+    setForm({ title: "", description: "", content: "", coverImage: "", images: [], published: false });
     setEditing(null);
     setShowForm(false);
   }
 
   function startEdit(p: Project) {
     setEditing(p);
-    setForm({ title: p.title, description: p.description, content: p.content, coverImage: p.coverImage, published: p.published });
+    setForm({
+      title: p.title,
+      description: p.description,
+      content: p.content,
+      coverImage: p.coverImage,
+      images: parseImages(p.images),
+      published: p.published,
+    });
     setShowForm(true);
   }
 
@@ -44,7 +62,11 @@ export default function AdminProjectsPage() {
     setLoading(true);
     const url = editing ? `/api/projects/${editing.id}` : "/api/projects";
     const method = editing ? "PUT" : "POST";
-    await fetch(url, { method, headers: { "Content-Type": "application/json" }, body: JSON.stringify(form) });
+    await fetch(url, {
+      method,
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ ...form, images: form.images }),
+    });
     setLoading(false);
     resetForm();
     fetchProjects();
@@ -92,13 +114,18 @@ export default function AdminProjectsPage() {
               />
             </div>
             <div>
-              <label className="mb-1 block text-sm font-medium">封面图片URL</label>
-              <input
-                type="text"
-                value={form.coverImage}
-                onChange={(e) => setForm({ ...form, coverImage: e.target.value })}
-                className="w-full rounded-lg border px-3 py-2 text-sm focus:border-blue-500 focus:outline-none"
-                placeholder="https://..."
+              <label className="mb-1 block text-sm font-medium">封面图片</label>
+              <MediaPicker
+                value={form.coverImage ? [form.coverImage] : []}
+                onChange={(urls) => setForm({ ...form, coverImage: urls[0] || "" })}
+              />
+            </div>
+            <div className="md:col-span-2">
+              <label className="mb-1 block text-sm font-medium">项目图集</label>
+              <MediaPicker
+                value={form.images}
+                onChange={(urls) => setForm({ ...form, images: urls })}
+                multiple
               />
             </div>
             <div className="md:col-span-2">

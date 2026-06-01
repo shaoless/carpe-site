@@ -2,6 +2,7 @@ import Link from "next/link";
 import { db } from "@/lib/db";
 import { projects } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
+import { MediaViewer } from "@/components/MediaViewer";
 
 export default function ProjectsPage() {
   const publishedProjects = db
@@ -32,7 +33,7 @@ export default function ProjectsPage() {
                 className="group rounded-xl border p-6 transition-all hover:shadow-lg hover:border-blue-200"
               >
                 {project.coverImage && (
-                  <img
+                  <MediaViewer
                     src={project.coverImage}
                     alt={project.title}
                     className="mb-4 h-48 w-full rounded-lg object-cover"

@@ -1,6 +1,7 @@
 import { db } from "@/lib/db";
 import { culture } from "@/lib/db/schema";
 import { getSiteSettings } from "@/lib/utils";
+import { MediaViewer } from "@/components/MediaViewer";
 
 export default function AboutPage() {
   const settings = getSiteSettings();
@@ -24,7 +25,7 @@ export default function AboutPage() {
               <div key={item.id} className={`flex flex-col gap-8 ${index % 2 === 1 ? "md:flex-row-reverse" : "md:flex-row"} items-center`}>
                 {item.image && (
                   <div className="w-full md:w-1/2">
-                    <img
+                    <MediaViewer
                       src={item.image}
                       alt={item.title}
                       className="rounded-xl object-cover w-full h-64"

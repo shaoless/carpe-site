@@ -2,6 +2,7 @@ import { db } from "@/lib/db";
 import { projects } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
 import { notFound } from "next/navigation";
+import { MediaViewer } from "@/components/MediaViewer";
 
 export default async function ProjectDetailPage({
   params,
@@ -32,7 +33,7 @@ export default async function ProjectDetailPage({
 
       <section className="mx-auto max-w-4xl px-4 py-12">
         {project.coverImage && (
-          <img
+          <MediaViewer
             src={project.coverImage}
             alt={project.title}
             className="mb-8 w-full rounded-xl object-cover max-h-96"
@@ -41,10 +42,10 @@ export default async function ProjectDetailPage({
 
         {images.length > 0 && (
           <div className="mb-8 grid grid-cols-2 gap-4">
-            {images.map((img: string, i: number) => (
-              <img
+            {images.map((src: string, i: number) => (
+              <MediaViewer
                 key={i}
-                src={img}
+                src={src}
                 alt={`${project.title} ${i + 1}`}
                 className="rounded-lg object-cover w-full h-64"
               />
