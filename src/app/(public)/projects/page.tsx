@@ -4,6 +4,8 @@ import { projects } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
 import { MediaViewer } from "@/components/MediaViewer";
 
+export const dynamic = "force-dynamic";
+
 export default function ProjectsPage() {
   const publishedProjects = db
     .select()

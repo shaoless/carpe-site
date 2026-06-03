@@ -3,6 +3,9 @@ import { db } from "@/lib/db";
 import { projects, news } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
 import Link from "next/link";
+import { MediaViewer } from "@/components/MediaViewer";
+
+export const dynamic = "force-dynamic";
 
 export default function HomePage() {
   const settings = getSiteSettings();
@@ -65,7 +68,7 @@ export default function HomePage() {
                 className="group rounded-xl border p-6 transition-all hover:shadow-lg hover:border-blue-200"
               >
                 {project.coverImage && (
-                  <img
+                  <MediaViewer
                     src={project.coverImage}
                     alt={project.title}
                     className="mb-4 h-48 w-full rounded-lg object-cover"
@@ -97,7 +100,7 @@ export default function HomePage() {
                   className="group rounded-xl bg-white p-6 shadow-sm transition-all hover:shadow-md"
                 >
                   {item.coverImage && (
-                    <img
+                    <MediaViewer
                       src={item.coverImage}
                       alt={item.title}
                       className="mb-4 h-48 w-full rounded-lg object-cover"

@@ -3,6 +3,8 @@ import { culture } from "@/lib/db/schema";
 import { getSiteSettings } from "@/lib/utils";
 import { MediaViewer } from "@/components/MediaViewer";
 
+export const dynamic = "force-dynamic";
+
 export default function AboutPage() {
   const settings = getSiteSettings();
   const cultureItems = db.select().from(culture).orderBy(culture.sortOrder).all();
