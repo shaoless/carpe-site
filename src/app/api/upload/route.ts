@@ -5,6 +5,7 @@ import { requireAuth } from "@/lib/auth";
 import { writeFile, mkdir } from "fs/promises";
 import path from "path";
 import { v4 as uuidv4 } from "uuid";
+import { getUploadDir } from "@/lib/upload";
 
 export async function POST(req: NextRequest) {
   try {
@@ -18,7 +19,7 @@ export async function POST(req: NextRequest) {
 
     const ext = path.extname(file.name);
     const filename = `${uuidv4()}${ext}`;
-    const uploadDir = path.join(process.cwd(), "public", "uploads");
+    const uploadDir = getUploadDir();
 
     await mkdir(uploadDir, { recursive: true });
 

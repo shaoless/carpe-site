@@ -5,6 +5,7 @@ import { requireAuth } from "@/lib/auth";
 import { eq } from "drizzle-orm";
 import { unlink } from "fs/promises";
 import path from "path";
+import { getUploadDir } from "@/lib/upload";
 
 export async function DELETE(
   _req: NextRequest,
@@ -19,7 +20,8 @@ export async function DELETE(
       return NextResponse.json({ error: "文件不存在" }, { status: 404 });
     }
 
-    const filePath = path.join(process.cwd(), "public", file.path);
+    const uploadDir = getUploadDir();
+    const filePath = path.join(uploadDir, file.filename);
     try {
       await unlink(filePath);
     } catch {
